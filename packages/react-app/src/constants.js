@@ -94,6 +94,14 @@ export const NETWORKS = {
     faucet: "https://cantofaucet.com/",
     blockExplorer: "https://evm.explorer.canto.io/",
   },
+  cantoTestnet: {
+    name: "cantoTestnet",
+    color: "#00ff9d",
+    chainId: 7701,
+    gasPrice: 1020000000000,
+    rpcUrl: "https://canto-testnet.plexnode.wtf",
+    blockExplorer: "https://testnet.tuber.build",
+  },
   mumbai: {
     name: "mumbai",
     color: "#92D9FA",

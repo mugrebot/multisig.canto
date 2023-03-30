@@ -49,7 +49,7 @@ const { Option } = Select;
 const { ethers } = require("ethers");
 
 /// 📡 What chain are your contracts deployed to?
-const initialNetwork = NETWORKS.mainnet; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const initialNetwork = NETWORKS.cantoTestnet; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 // const initialNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
@@ -71,6 +71,7 @@ const providers = [
   "https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406",
   `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_KEY}`,
   "https://rpc.scaffoldeth.io:48544",
+  "https://canto-testnet.plexnode.wtf",
 ];
 function App(props) {
   // specify all the chains your app is available on. Eg: ['localhost', 'mainnet', ...otherNetworks ]
@@ -125,6 +126,9 @@ function App(props) {
 
   let isFactoryDeployed = deployedContracts[targetNetwork.chainId];
   const contractName = "MultiSigWallet";
+
+  //console log the multisigwallet contract
+  console.log("multiSigWalletABI", multiSigWalletABI);
 
   /**----------------------
    * apps root providers and setup configs
@@ -206,6 +210,7 @@ function App(props) {
 
   const updateUserWallets = () => {
     let multiSigsForUser = userWallets && [...userWallets.map(data => data.walletAddress)];
+    console.log(multiSigsForUser);
 
     const recentMultiSigAddress = multiSigsForUser && multiSigsForUser[multiSigsForUser.length - 1];
     setCurrentMultiSigAddress(recentMultiSigAddress);

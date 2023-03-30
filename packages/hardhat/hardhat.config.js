@@ -131,6 +131,14 @@ module.exports = {
     },
     canto: {
       url: "https://canto.slingshot.finance",
+      chainId: 7700,
+      accounts: {
+        mnemonic: mnemonic(),
+      },
+    },
+    cantoTestnet: {
+      url: "https://canto-testnet.plexnode.wtf",
+      chainId: 7701,
       accounts: {
         mnemonic: mnemonic(),
       },
