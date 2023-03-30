@@ -17,6 +17,8 @@ export default function useStaticJsonRPC(urlArray) {
       const p = await Promise.race(urlArray.map(createProvider));
       const _p = await p;
 
+      _p.pollingInterval = 30_000;
+
       setProvider(_p);
     } catch (error) {
       // todo: show notification error about provider issues
