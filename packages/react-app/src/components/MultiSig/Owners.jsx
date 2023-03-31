@@ -26,6 +26,22 @@ function Owners({
   readContracts,
 }) {
   const [ownerEvents, setOwnerEvents] = useState([]);
+  const [ownerArray, setOwnerArray] = useState([]);
+
+//lets render the Owners list here using readContracts.MultiSigWallet
+
+useEffect(() => {
+  const getOwners = async () => {
+    const owners = await readContracts.MultiSigWallet.getMultiSigDetails();
+    const fetchedOwners = owners[1];
+    console.log('owners', fetchedOwners);
+    setOwnerArray(fetchedOwners);
+  };
+  getOwners();
+}, [readContracts]);
+
+
+
 
   // const allOwnerEvents = useEventListener(
   //   currentMultiSigAddress && reDeployWallet === undefined ? readContracts : null,
@@ -52,6 +68,7 @@ function Owners({
       prevOwners.add(ownerEvent.args.owner);
       owners.delete(ownerEvent.args.owner);
     }
+    console.log(owners, prevOwners);
   });
   // const updateOwners = async owners => {
   //   let reqData = {
@@ -89,8 +106,8 @@ function Owners({
         header={<h2>Owners</h2>}
         style={{ maxWidth: 400, margin: "auto", marginTop: 32 }}
         bordered
-        dataSource={[...owners]}
-        loading={ownerEvents.length === 0}
+        dataSource={[...ownerArray]}
+        loading={ownerArray.length === 0}
         renderItem={ownerAddress => {
           return (
             <List.Item key={"owner_" + ownerAddress}>
