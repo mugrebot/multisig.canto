@@ -179,6 +179,7 @@ contract MultiSigWallet {
         }
       }
     }
+    allocation[_oldSigner] = 0;
   }
 
   function updateSignaturesRequired(uint256 newSignaturesRequired) public onlySelf onlyValidSignaturesRequired {
@@ -296,6 +297,11 @@ contract MultiSigWallet {
 
       //still need to distribute the remaining fee to the approvers
     }
+  }
+
+  //write a function to view the fee allocation for each owner
+  function viewAllocation(address _owner) public view returns (uint256) {
+    return allocation[_owner];
   }
 
   function recover(bytes32 _hash, bytes calldata _signature) public pure returns (address) {
