@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import { Select, List, Spin, Collapse } from "antd";
+import { Select, List, Spin, Collapse, Button } from "antd";
 import axios from "axios";
 
 // import { useEventListener } from "eth-hooks/events/";
@@ -32,13 +32,13 @@ function Owners({
 
 useEffect(() => {
   const getOwners = async () => {
-    const owners = await readContracts.MultiSigWallet.getMultiSigDetails();
+    const owners = await readContracts?.MultiSigWallet?.getMultiSigDetails();
     const fetchedOwners = owners[1];
     console.log('owners', fetchedOwners);
     setOwnerArray(fetchedOwners);
   };
   getOwners();
-}, [readContracts]);
+}, [readContracts, ownerEvents]);
 
 
 
@@ -94,6 +94,7 @@ useEffect(() => {
       loadOwnersEvents();
     }
   }, [allOwnerEvents.length]);
+  
 
   return (
     <div>

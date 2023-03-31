@@ -164,6 +164,22 @@ export default function CreateTransaction({
     }
   };
 
+
+  const withdrawFees = async () => {
+    if (!userSigner) {
+      console.error("No signer is connected");
+      return;
+    }
+  
+    try {
+      const multiSigWalletWithSigner = readContracts.MultiSigWallet.connect(userSigner);
+      const tx = await multiSigWalletWithSigner.withdraw();
+      await tx.wait();
+    } catch (error) {
+      console.error("Error while withdrawing fees:", error);
+    }
+  };
+
   return (
     <div className="flex justify-center flex-col items-center">
       <div
@@ -280,6 +296,7 @@ export default function CreateTransaction({
                   setCustomNonce(value >= 0 ? value : 0);
                 }}
               />*/}
+
               <Space style={{ marginTop: 32 }}>
                 <Button loading={loading} onClick={createTransaction} type="primary">
                   Propose
@@ -291,6 +308,10 @@ export default function CreateTransaction({
       </div>
 
       {isOwner === false && <Alert message="you are not the owner ! " type="error" showIcon />}
+      <Button onClick={withdrawFees} type="secondary" style={{ marginTop: 32 }}>
+  Withdraw Turnstile Fees
+</Button>
     </div>
+    
   );
 }
